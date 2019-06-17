@@ -53,9 +53,9 @@ const checkIfPhoneNumberIsAvailable = phoneNumber => {
 
 // function for send SMS promise
 const sendSMSPromise = async params => {
-  if (!params.MessageStructure) {
-    params = { Message, MessageStructure: "String", PhoneNumber };
-  }
+  // if (!params.MessageStructure) {
+  //   params = { Message, MessageStructure: "String", PhoneNumber };
+  // }
   return new Promise((resolve, reject) => {
     SNS.publish(params, function(err, data) {
       if (err) {
@@ -73,7 +73,6 @@ const sendSMSPromise = async params => {
 // function to send SMS
 const sendSMS = async params => {
   console.log(params);
-  const { Message, PhoneNumber } = params;
 
   // const checkPhoneNumber = await checkIfPhoneNumberIsAvailable(PhoneNumber);
   // if (!checkPhoneNumber) {
@@ -81,8 +80,13 @@ const sendSMS = async params => {
   //   return false;
   // }
 
-  params = { Message, MessageStructure: "String", PhoneNumber };
-
+  params = {
+    Message: params.message,
+    MessageStructure: "String",
+    PhoneNumber: params.phone,
+    Subject: params.subject
+  };
+  console.log(params);
   const resultSMSPromise = await sendSMSPromise(params);
   console.log("resultSMSPromise");
   console.log(resultSMSPromise);

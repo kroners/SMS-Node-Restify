@@ -5,8 +5,8 @@ const routerInstace = new Router();
 
 // SMS - Notifications
 routerInstace.post("/message", async (req, res) => {
-  if (!req.body.Message || req.body.Message == "") {
-    req.body.Message = "Message with no body";
+  if (!req.body.message || req.body.message == "") {
+    req.body.message = "Message with no body";
   }
   try {
     console.log("before await sendSMS");
