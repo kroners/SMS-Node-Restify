@@ -9,10 +9,12 @@ routerInstace.post("/message", async (req, res) => {
     req.body.Message = "Message with no body";
   }
   try {
+    console.log("before await sendSMS");
     let sendSMSResult = await sendSMS(req.body);
     console.log(sendSMSResult);
+    console.log(typeof sendSMSResult);
     return res.json({
-      data: data || "",
+      data: sendSMSResult.MessageId || "",
       error_code: null,
       message: "OK",
       success: true
